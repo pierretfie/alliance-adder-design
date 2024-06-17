@@ -1,0 +1,64 @@
+entity top_level is
+   port (
+      a    : in      bit;
+      b    : in      bit;
+      cin  : in      bit;
+      sum  : out     bit;
+      cout : out     bit;
+      vdd  : in      bit;
+      vss  : in      bit
+ );
+end top_level;
+
+architecture structural of top_level is
+Component adder_boog
+   port (
+      a    : in      bit;
+      b    : in      bit;
+      cin  : in      bit;
+      sum  : out     bit;
+      cout : out     bit;
+      vdd  : in      bit;
+      vss  : in      bit
+ );
+end component;
+
+Component adder_loon
+   port (
+      a    : in      bit;
+      b    : in      bit;
+      cin  : in      bit;
+      sum  : out     bit;
+      cout : out     bit;
+      vdd  : in      bit;
+      vss  : in      bit
+ );
+end component;
+
+
+begin
+
+u_boog : adder_boog
+   port map (
+      a    => a,
+      b    => b,
+      cin  => cin,
+      sum  => sum,
+      cout => cout,
+      vdd  => vdd,
+      vss  => vss
+   );
+
+u_loon : adder_loon
+   port map (
+      a    => a,
+      b    => b,
+      cin  => cin,
+      sum  => sum,
+      cout => cout,
+      vdd  => vdd,
+      vss  => vss
+   );
+
+
+end structural;

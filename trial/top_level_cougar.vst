@@ -1,0 +1,140 @@
+entity top_level_cougar is
+   port (
+      vss  : linkage bit;
+      vdd  : linkage bit;
+      sum  : linkage bit;
+      cout : linkage bit;
+      cin  : linkage bit;
+      b    : linkage bit;
+      a    : linkage bit
+ );
+end top_level_cougar;
+
+architecture structural of top_level_cougar is
+Component xr2_x1
+   port (
+      vss : linkage bit;
+      vdd : linkage bit;
+      q   : linkage bit;
+      i1  : linkage bit;
+      i0  : linkage bit
+ );
+end component;
+
+Component oa2ao222_x2
+   port (
+      vss : linkage bit;
+      vdd : linkage bit;
+      q   : linkage bit;
+      i4  : linkage bit;
+      i3  : linkage bit;
+      i2  : linkage bit;
+      i1  : linkage bit;
+      i0  : linkage bit
+ );
+end component;
+
+Component tie_x0
+   port (
+      vss : linkage bit;
+      vdd : linkage bit
+ );
+end component;
+
+signal u_loon_xr2_x1_sig : bit;
+signal u_boog_xr2_x1_sig : bit;
+
+begin
+
+u_loon_sum_ins : xr2_x1
+   port map (
+      vss => vss,
+      vdd => vdd,
+      q   => sum,
+      i1  => cin,
+      i0  => u_loon_xr2_x1_sig
+   );
+
+u_loon_xr2_x1_ins : xr2_x1
+   port map (
+      vss => vss,
+      vdd => vdd,
+      q   => u_loon_xr2_x1_sig,
+      i1  => b,
+      i0  => a
+   );
+
+u_boog_xr2_x1_ins : xr2_x1
+   port map (
+      vss => vss,
+      vdd => vdd,
+      q   => u_boog_xr2_x1_sig,
+      i1  => b,
+      i0  => a
+   );
+
+u_boog_sum_ins : xr2_x1
+   port map (
+      vss => vss,
+      vdd => vdd,
+      q   => sum,
+      i1  => cin,
+      i0  => u_boog_xr2_x1_sig
+   );
+
+u_loon_cout_ins : oa2ao222_x2
+   port map (
+      vss => vss,
+      vdd => vdd,
+      q   => cout,
+      i4  => cin,
+      i3  => a,
+      i2  => b,
+      i1  => b,
+      i0  => a
+   );
+
+u_boog_cout_ins : oa2ao222_x2
+   port map (
+      vss => vss,
+      vdd => vdd,
+      q   => cout,
+      i4  => cin,
+      i3  => a,
+      i2  => b,
+      i1  => b,
+      i0  => a
+   );
+
+tiex0_1 : tie_x0
+   port map (
+      vss => vss,
+      vdd => vdd
+   );
+
+tiex0_2 : tie_x0
+   port map (
+      vss => vss,
+      vdd => vdd
+   );
+
+tiex0_3 : tie_x0
+   port map (
+      vss => vss,
+      vdd => vdd
+   );
+
+tiex0_4 : tie_x0
+   port map (
+      vss => vss,
+      vdd => vdd
+   );
+
+tiex0_5 : tie_x0
+   port map (
+      vss => vss,
+      vdd => vdd
+   );
+
+
+end structural;

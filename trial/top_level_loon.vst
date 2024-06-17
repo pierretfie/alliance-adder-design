@@ -1,0 +1,103 @@
+entity top_level_loon is
+   port (
+      a    : in      bit;
+      b    : in      bit;
+      cin  : in      bit;
+      sum  : out     bit;
+      cout : out     bit;
+      vdd  : in      bit;
+      vss  : in      bit
+ );
+end top_level_loon;
+
+architecture structural of top_level_loon is
+Component oa2ao222_x2
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      i2  : in      bit;
+      i3  : in      bit;
+      i4  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+Component xr2_x1
+   port (
+      i0  : in      bit;
+      i1  : in      bit;
+      q   : out     bit;
+      vdd : in      bit;
+      vss : in      bit
+ );
+end component;
+
+signal u_loon_xr2_x1_sig : bit;
+signal u_boog_xr2_x1_sig : bit;
+
+begin
+
+u_loon_cout_ins : oa2ao222_x2
+   port map (
+      i0  => a,
+      i1  => b,
+      i2  => b,
+      i3  => a,
+      i4  => cin,
+      q   => cout,
+      vdd => vdd,
+      vss => vss
+   );
+
+u_loon_xr2_x1_ins : xr2_x1
+   port map (
+      i0  => a,
+      i1  => b,
+      q   => u_loon_xr2_x1_sig,
+      vdd => vdd,
+      vss => vss
+   );
+
+u_loon_sum_ins : xr2_x1
+   port map (
+      i0  => u_loon_xr2_x1_sig,
+      i1  => cin,
+      q   => sum,
+      vdd => vdd,
+      vss => vss
+   );
+
+u_boog_cout_ins : oa2ao222_x2
+   port map (
+      i0  => a,
+      i1  => b,
+      i2  => b,
+      i3  => a,
+      i4  => cin,
+      q   => cout,
+      vdd => vdd,
+      vss => vss
+   );
+
+u_boog_xr2_x1_ins : xr2_x1
+   port map (
+      i0  => a,
+      i1  => b,
+      q   => u_boog_xr2_x1_sig,
+      vdd => vdd,
+      vss => vss
+   );
+
+u_boog_sum_ins : xr2_x1
+   port map (
+      i0  => u_boog_xr2_x1_sig,
+      i1  => cin,
+      q   => sum,
+      vdd => vdd,
+      vss => vss
+   );
+
+
+end structural;

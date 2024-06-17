@@ -1,0 +1,29 @@
+-- VHDL data flow description generated from `adder_boom`
+--		date : Fri May 31 19:21:57 2024
+
+
+-- Entity Declaration
+
+ENTITY adder_boom IS
+  PORT (
+  a : in BIT;	-- a
+  b : in BIT;	-- b
+  cin : in BIT;	-- cin
+  sum : out BIT;	-- sum
+  cout : out BIT;	-- cout
+  vdd : in BIT;	-- vdd
+  vss : in BIT	-- vss
+  );
+END adder_boom;
+
+
+-- Architecture Declaration
+
+ARCHITECTURE behaviour_data_flow OF adder_boom IS
+
+BEGIN
+
+cout <= ((cin AND (a OR b)) OR (a AND b));
+
+sum <= (cin XOR b XOR a);
+END;
